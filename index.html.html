@@ -73,10 +73,11 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:12px}input,select{width:100%
 function page(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
 function add(e){e.preventDefault();let r=document.getElementById('records').insertRow(1);r.innerHTML='<td>'+type.value+'</td><td>'+loc.value+'</td><td>'+qty.value+' kg</td><td>'+date.value+'</td><td><span class="status">تم التسجيل</span></td>';alert('تم تسجيل العملية في النموذج التجريبي.')}
 </script><script>
+const BASE_URL = "https://marawan3mohamed-sys.github.io/Valorization-Tracker/";
 const qrTargets = {
-  "RC-01": window.location.href.split("#")[0] + "?point=RC-01",
-  "PL-01": window.location.href.split("#")[0] + "?point=PL-01",
-  "AL-01": window.location.href.split("#")[0] + "?point=AL-01"
+  "RC-01": BASE_URL + "?point=RC-01",
+  "PL-01": BASE_URL + "?point=PL-01",
+  "AL-01": BASE_URL + "?point=AL-01"
 };
 
 function makeQR(id, text){
