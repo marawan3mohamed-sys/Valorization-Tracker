@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<title>Valorization Tracker | Tech Builders</title>
+<style>
+body{margin:0;background:#f4f7f6;color:#17312b;font-family:Arial,Tahoma,sans-serif}
+header{background:#176b57;color:white;padding:25px 6%}h1{margin:0 0 6px}nav{padding:10px 6%;background:white;border-bottom:1px solid #ddd}
+button{border:0;padding:10px 14px;margin:3px;border-radius:8px;cursor:pointer}button.active{background:#dcefe9;color:#176b57}
+main{max-width:1100px;margin:25px auto;padding:0 18px}.page{display:none}.page.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:white;border:1px solid #e1e9e5;border-radius:14px;padding:18px;box-shadow:0 3px 12px #00000008}
+.num{font-size:28px;font-weight:bold;margin:8px 0}.muted{color:#6b7b76}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e5ece9;text-align:right}
+.status{background:#dcefe9;color:#176b57;border-radius:15px;padding:5px 9px;font-size:12px}
+.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.step{background:#dcefe9;padding:10px 13px;border-radius:10px;font-weight:bold}
+form{display:grid;grid-template-columns:1fr 1fr;gap:12px}input,select{width:100%;padding:10px;margin-top:5px;border:1px solid #ccd9d5;border-radius:7px;box-sizing:border-box}.full{grid-column:1/-1}
+.primary{background:#176b57;color:white}.notice{margin-top:16px;padding:12px;background:#fff5dd;border-right:4px solid #b87916}
+@media(max-width:750px){.grid,.two,form{grid-template-columns:1fr 1fr}}@media(max-width:500px){.grid,.two,form{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><h1>Valorization Tracker</h1><div>نظام تتبع تثمين المخلفات الجامعية — بُناة التكنولوجيا | Tech Builders</div></header>
+<nav>
+<button class="active" onclick="page('dash',this)">لوحة المتابعة</button>
+<button onclick="page('collect',this)">تسجيل المخلفات</button>
+<button onclick="page('journey',this)">رحلة التثمين</button>
+<button onclick="page('points',this)">نقاط الجمع</button>
+<button onclick="page('products',this)">المواد والمنتجات</button>
+<button onclick="page('impact',this)">الأثر</button>
+</nav>
+<main>
+<section id="dash" class="page active"><h2>لوحة المتابعة الرقمية</h2><p class="muted">بيانات تجريبية توضيحية للنموذج الأولي.</p>
+<div class="grid">
+<div class="card">إجمالي المخلفات<div class="num">1,250 kg</div></div>
+<div class="card">كسر الخرسانة<div class="num">800 kg</div><small>RCA</small></div>
+<div class="card">البلاستيك<div class="num">300 kg</div><small>ألياف بلاستيكية</small></div>
+<div class="card">الألومنيوم<div class="num">150 kg</div><small>Nano-Al₂O₃</small></div>
+</div>
+<div class="two"><div class="card"><h3>توزيع المخلفات</h3><p>كسر الخرسانة — 64%</p><p>المخلفات البلاستيكية — 24%</p><p>عبوات الألومنيوم — 12%</p></div>
+<div class="card"><h3>حالة التثمين</h3><table><tr><th>المسار</th><th>الحالة</th></tr><tr><td>الخرسانة → RCA</td><td><span class="status">تم التثمين</span></td></tr><tr><td>البلاستيك → ألياف</td><td><span class="status">قيد المعالجة</span></td></tr><tr><td>الألومنيوم → Nano-Al₂O₃</td><td><span class="status">قيد الدراسة</span></td></tr></table></div></div>
+<div class="notice">الأرقام المعروضة تجريبية لأغراض العرض وليست كميات فعلية تم جمعها من الجامعة.</div></section>
+
+<section id="collect" class="page"><h2>تسجيل المخلفات</h2><div class="card"><form onsubmit="add(event)">
+<label>نوع المخلف<select id="type"><option>كسر الخرسانة</option><option>بلاستيك PET</option><option>مصاصات بلاستيكية</option><option>عبوات ألومنيوم</option></select></label>
+<label>موقع الجمع<select id="loc"><option>معامل مقاومة المواد والخرسانة</option><option>نقطة جمع البلاستيك</option><option>نقطة جمع الألومنيوم</option></select></label>
+<label>الكمية (kg)<input id="qty" type="number" min="0.1" step="0.1" required></label><label>التاريخ<input id="date" type="date" required></label>
+<div class="full"><button class="primary">تسجيل العملية</button></div></form></div>
+<div class="card" style="margin-top:15px"><h3>آخر العمليات</h3><table id="records"><tr><th>المخلف</th><th>الموقع</th><th>الكمية</th><th>التاريخ</th><th>الحالة</th></tr></table></div></section>
+
+<section id="journey" class="page"><h2>رحلة تثمين المخلفات</h2>
+<div class="card"><h3>كسر الخرسانة</h3><div class="flow"><span class="step">جمع</span>←<span class="step">فرز</span>←<span class="step">تكسير وغربلة</span>←<span class="step">RCA</span>←<span class="step">المصفوفة الخرسانية</span>←<span class="step">بلوكات الرصف</span></div></div>
+<div class="card" style="margin-top:15px"><h3>البلاستيك</h3><div class="flow"><span class="step">جمع</span>←<span class="step">فرز وتنظيف</span>←<span class="step">تقطيع</span>←<span class="step">ألياف بلاستيكية</span>←<span class="step">الخرسانة</span></div></div>
+<div class="card" style="margin-top:15px"><h3>الألومنيوم</h3><div class="flow"><span class="step">جمع</span>←<span class="step">فرز وتنظيف</span>←<span class="step">معالجة</span>←<span class="step">Nano-Al₂O₃</span>←<span class="step">الخرسانة</span></div></div></section>
+
+<section id="points" class="page"><h2>نقاط الجمع</h2>
+<p class="muted">QR Codes حقيقية قابلة للمسح. حاليًا تستخدم روابط تجريبية داخل النظام، وسيتم استبدالها بالرابط العام بعد استضافة المنصة.</p>
+<div class="grid">
+<div class="card"><h3>RC-01</h3><p>معامل مقاومة المواد والخرسانة</p><span class="status">كسر الخرسانة</span><div id="qr-rc" style="margin:15px auto;width:128px;height:128px"></div><button onclick="openQR('RC-01')">فتح رابط RC-01</button></div>
+<div class="card"><h3>PL-01</h3><p>نقطة جمع البلاستيك</p><span class="status">PET والمصاصات</span><div id="qr-pl" style="margin:15px auto;width:128px;height:128px"></div><button onclick="openQR('PL-01')">فتح رابط PL-01</button></div>
+<div class="card"><h3>AL-01</h3><p>نقطة جمع الألومنيوم</p><span class="status">عبوات الألومنيوم</span><div id="qr-al" style="margin:15px auto;width:128px;height:128px"></div><button onclick="openQR('AL-01')">فتح رابط AL-01</button></div>
+</div>
+<div class="notice"><b>مهم:</b> هذه الأكواد قابلة للمسح الآن، لكن لكي تعمل من أي هاتف خارج جهازك يجب أولًا استضافة الموقع على الإنترنت. بعد الحصول على الرابط العام سنربط كل QR بالرابط النهائي لنقطة الجمع.</div>
+</section>
+
+<section id="products" class="page"><h2>المواد والمنتجات</h2><div class="grid">
+<div class="card"><h3>RCA</h3><p>ركام خرساني معاد تدويره.</p></div><div class="card"><h3>ألياف بلاستيكية</h3><p>ألياف ناتجة عن تجهيز المخلفات البلاستيكية المناسبة.</p></div><div class="card"><h3>Nano-Al₂O₃</h3><p>مادة مستهدفة من معالجة عبوات الألومنيوم ودراسة استخدامها.</p></div><div class="card"><h3>Interlocking Paving Blocks</h3><p>بلوكات رصف متداخلة مستدامة كنموذج تطبيقي.</p></div>
+</div></section>
+
+<section id="impact" class="page"><h2>الأثر المتوقع</h2><div class="grid">
+<div class="card"><h3>بيئي</h3><p>تثمين المخلفات وتقليل التخلص منها ودعم الاقتصاد الدائري.</p></div><div class="card"><h3>اقتصادي</h3><p>تحويل مخلفات منخفضة القيمة إلى مواد ومنتجات ذات قيمة مضافة.</p></div><div class="card"><h3>تعليمي وبحثي</h3><p>تطبيق عملي في مواد البناء المستدامة وإعادة التدوير.</p></div><div class="card"><h3>مجتمعي</h3><p>نشر ثقافة الفرز وإعادة الاستخدام.</p></div>
+</div></section>
+</main>
+<script>
+function page(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+function add(e){e.preventDefault();let r=document.getElementById('records').insertRow(1);r.innerHTML='<td>'+type.value+'</td><td>'+loc.value+'</td><td>'+qty.value+' kg</td><td>'+date.value+'</td><td><span class="status">تم التسجيل</span></td>';alert('تم تسجيل العملية في النموذج التجريبي.')}
+</script><script>
+const qrTargets = {
+  "RC-01": window.location.href.split("#")[0] + "?point=RC-01",
+  "PL-01": window.location.href.split("#")[0] + "?point=PL-01",
+  "AL-01": window.location.href.split("#")[0] + "?point=AL-01"
+};
+
+function makeQR(id, text){
+  const el = document.getElementById(id);
+  if(el && window.QRCode){
+    new QRCode(el,{text:text,width:128,height:128,correctLevel:QRCode.CorrectLevel.M});
+  }
+}
+function openQR(point){
+  window.open(qrTargets[point], "_blank");
+}
+makeQR("qr-rc", qrTargets["RC-01"]);
+makeQR("qr-pl", qrTargets["PL-01"]);
+makeQR("qr-al", qrTargets["AL-01"]);
+</script></body></html>
